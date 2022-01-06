@@ -2,6 +2,7 @@
   --primary-color: rgba(255, 0, 88, 1);
   --secondary-color: rgba(26, 36, 54, 1);
   --border-color: #ffffff;
+  --border-color-2: rgba(0, 0, 0, 0.75);
   --font-color-2: rgba(95, 95, 95, 1);
   --button-background: rgba(26, 36, 54, 1);
   --button-hover: rgba(173, 10, 62, 1);

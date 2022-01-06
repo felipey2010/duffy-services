@@ -5,23 +5,18 @@ import { FaShoppingCart } from "react-icons/fa";
 import { GoArrowUp } from "react-icons/go";
 import Typed from "react-typed";
 import { AiOutlineClose } from "react-icons/ai";
+import TeamPic from "./images/team.svg";
 
 function App() {
   const [activeButton, setActiveButton] = useState(false);
   const [openNav, setOpenNav] = useState(false);
 
   const sections = document.querySelectorAll("section");
-  const nav = document.querySelectorAll("ul li a");
+  const nav = document.querySelectorAll(".nav-container li a");
+  const nav_mobile = document.querySelectorAll(".mobile-container-links li a");
+  const navSection = document.querySelector(".nav-section");
 
-  if (openNav) {
-    document.documentElement.style.overflow = "hidden";
-    document.body.scroll = "no";
-  } else {
-    document.documentElement.style.overflow = "auto";
-    document.body.scroll = "yes";
-  }
-
-  window.addEventListener("scroll", checkActiveLink());
+  window.addEventListener("scroll", checkActiveLink);
 
   window.onscroll = function () {
     scrollFunction();
@@ -44,7 +39,6 @@ function App() {
 
   function checkActiveLink() {
     let current = "";
-    const navSection = document.querySelector(".nav-section");
 
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
@@ -55,29 +49,64 @@ function App() {
       ) {
         current = section.getAttribute("id");
       }
+    });
+
+    nav.forEach(li => {
+      li.classList.remove("active-link");
+      navSection.classList.remove("border-left-right-primary");
+
+      if (li.classList.contains(current)) {
+        li.classList.add("active-link");
+      }
 
       if (current === "home") {
         navSection.classList.add("border-left-right-primary");
         navSection.classList.remove("border-left-right-transparent");
       } else {
-        navSection.classList.remove("border-left-right-primary");
         navSection.classList.add("border-left-right-transparent");
       }
     });
 
-    nav.forEach(li => {
+    nav_mobile.forEach(li => {
       li.classList.remove("active-link");
+      navSection.classList.remove("border-left-right-primary");
 
       if (li.classList.contains(current)) {
         li.classList.add("active-link");
       }
+
+      if (current === "home") {
+        navSection.classList.add("border-left-right-primary");
+        navSection.classList.remove("border-left-right-transparent");
+      } else {
+        navSection.classList.add("border-left-right-transparent");
+      }
     });
+  }
+
+  function activateMenu() {
+    setOpenNav(!openNav);
+
+    if (openNav) {
+      document.getElementById("mobile-container-div").style.height = "100%";
+      document.documentElement.style.overflow = "hidden";
+      document.body.scroll = "no";
+    } else {
+      document.getElementById("mobile-container-div").style.height = 0;
+      document.documentElement.style.overflow = "auto";
+      document.body.scroll = "yes";
+    }
   }
 
   return (
     <div className="App">
-      <div className="nav-section border-left-right">
-        <Navbar setOpenNav={setOpenNav} openNav={openNav} />
+      <div className="nav-section border-left-right-primary">
+        <Navbar
+          setOpenNav={setOpenNav}
+          openNav={openNav}
+          checkActiveLink={checkActiveLink}
+          activateMenu={activateMenu}
+        />
       </div>
       <section className="head-section" id="home">
         <div className="header-text-container">
@@ -184,71 +213,116 @@ function App() {
           </span>
         </div>
       </section>
+      {/* Scroll up arrow */}
       {activeButton && (
         <a href="#home" className="go-up-div" id="upBtn" onClick={() => goUp()}>
           <GoArrowUp className="go-up-icon" />
         </a>
       )}
+      {/* End of Arrow  */}
 
-      {openNav && (
-        <div className="mobile-container">
-          <div className="mobile-container-icon">
-            <AiOutlineClose onClick={() => setOpenNav(!openNav)} />
+      {/* Contact section  */}
+      <section className="contact-section" id="contact">
+        <h2>Contact us</h2>
+        <p>We would like to hear from you</p>
+        <div className="contact-form">
+          <div className="contact-form-grid">
+            <input
+              type="text"
+              name="name"
+              placeholder="your name"
+              className="contact-form-input"
+            />
+            <input
+              type="text"
+              name="email"
+              placeholder="your e-mail"
+              className="contact-form-input"
+            />
           </div>
-          <ul className="mobile-container-links">
-            <li
-              className="mobile-nav-links"
-              onClick={() => {
-                setOpenNav(false);
-                checkActiveLink();
-              }}>
-              <a href="#home" className="nav-link-a home active-link">
-                Home
-              </a>
-            </li>
-            <li
-              className="mobile-nav-links"
-              onClick={() => {
-                setOpenNav(false);
-                checkActiveLink();
-              }}>
-              <a href="#services" className="nav-link-a services">
-                Services
-              </a>
-            </li>
-            <li
-              className="mobile-nav-links"
-              onClick={() => {
-                setOpenNav(false);
-                checkActiveLink();
-              }}>
-              <a href="#about-us" className="nav-link-a about-us">
-                About
-              </a>
-            </li>
-            <li
-              className="mobile-nav-links"
-              onClick={() => {
-                setOpenNav(false);
-                checkActiveLink();
-              }}>
-              <a href="#contact" className="nav-link-a contact">
-                Contact
-              </a>
-            </li>
-            <li
-              className="mobile-nav-links"
-              onClick={() => {
-                setOpenNav(false);
-                checkActiveLink();
-              }}>
-              <a href="#join-course" className="nav-link-a join-course">
-                Join Course
-              </a>
-            </li>
-          </ul>
+          <textarea
+            type="text"
+            name="message"
+            placeholder="your message"
+            className="contact-form-message"></textarea>
+          <button className="contact-from-button">Send</button>
         </div>
-      )}
+      </section>
+      {/* End of contact section */}
+
+      {/* Join Us Section */}
+      <section className="join-section" id="join-us">
+        <h2>Join us</h2>
+        <p>Our community is always growing.</p>
+        <div className="join-section-img">
+          <img src={TeamPic} alt="team" />
+        </div>
+      </section>
+      {/* End of Join Us Section */}
+      {/* Mobile Nav */}
+      <div className="mobile-container" id="mobile-container-div">
+        <div className="mobile-container-icon">
+          <AiOutlineClose
+            onClick={() => {
+              setOpenNav(!openNav);
+              activateMenu();
+            }}
+          />
+        </div>
+        <ul className="mobile-container-links">
+          <li
+            className="mobile-nav-links"
+            onClick={() => {
+              activateMenu();
+              checkActiveLink();
+            }}>
+            <a href="#home" className="nav-link-a home active-link">
+              Home
+            </a>
+          </li>
+          <li
+            className="mobile-nav-links"
+            onClick={() => {
+              activateMenu();
+              checkActiveLink();
+            }}>
+            <a href="#services" className="nav-link-a services">
+              Services
+            </a>
+          </li>
+          <li
+            className="mobile-nav-links"
+            onClick={() => {
+              activateMenu();
+              checkActiveLink();
+            }}>
+            <a href="#about-us" className="nav-link-a about-us">
+              About
+            </a>
+          </li>
+          <li
+            className="mobile-nav-links"
+            onClick={() => {
+              activateMenu();
+              checkActiveLink();
+            }}>
+            <a href="#contact" className="nav-link-a contact">
+              Contact
+            </a>
+          </li>
+          <li
+            className="mobile-nav-links"
+            onClick={() => {
+              activateMenu();
+              checkActiveLink();
+            }}>
+            <a href="#join-us" className="nav-link-a join-us">
+              Join us
+            </a>
+          </li>
+        </ul>
+      </div>
+      {/* End of Mobile Nav */}
     </div>
   );
 }

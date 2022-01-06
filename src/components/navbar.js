@@ -1,7 +1,7 @@
 import logo from "../images/duffy.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-export default function Navbar({ openNav, setOpenNav }) {
+export default function Navbar({ openNav, setOpenNav, activateMenu }) {
   return (
     <div className="navbar">
       <a href="#home" className="nav-link-a">
@@ -30,15 +30,17 @@ export default function Navbar({ openNav, setOpenNav }) {
           </a>
         </li>
         <li className="nav-links">
-          <a href="#join-course" className="nav-link-a join-course">
-            Join Course
+          <a href="#join-us" className="nav-link-a join-us">
+            Join us
           </a>
         </li>
       </ul>
       <div className="mobile-nav-container">
         <GiHamburgerMenu
           className="mobile-nav-icon"
-          onClick={() => setOpenNav(!openNav)}
+          onClick={() => {
+            activateMenu();
+          }}
         />
       </div>
     </div>
