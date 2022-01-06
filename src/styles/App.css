@@ -226,6 +226,11 @@ section {
   align-items: center;
   justify-content: space-evenly;
   text-align: center;
+  box-shadow: 1px 1px 0px -1px rgba(0, 0, 0, 0.5);
+}
+
+.services-grid-item:hover {
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
 }
 
 .grid-item-icon {
@@ -239,6 +244,10 @@ section {
   background-color: var(--button-background);
   position: absolute;
   top: -9%;
+}
+
+.services-grid-item:hover .grid-item-icon {
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
 }
 
 .grid-item-title {
@@ -530,7 +539,36 @@ textarea {
 }
 
 .join-section-img img {
-  width: 50%;
+  width: 35%;
+  animation: bounce 5.5s linear infinite 2s;
+}
+
+.footer {
+  width: 100%;
+  height: 54px;
+  background-color: var(--secondary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(-3%);
+  }
+  25% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(3%);
+  }
+  75% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-3%);
+  }
 }
 
 @media (max-width: 50em) {
@@ -579,6 +617,11 @@ textarea {
   .contact-section .contact-form-grid {
     width: 65%;
   }
+
+  .join-section-img img {
+    width: 65%;
+    animation: bounce 5.5s linear infinite 2s;
+  }
 }
 
 @media (max-width: 30em) {
@@ -605,6 +648,11 @@ textarea {
   .contact-section .contact-form-grid {
     width: 85%;
     grid-template-columns: 1fr;
+  }
+
+  .join-section-img img {
+    width: 75%;
+    animation: bounce 5.5s linear infinite 2s;
   }
 
   /* 

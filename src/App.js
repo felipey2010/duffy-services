@@ -41,7 +41,7 @@ function App() {
     let current = "";
 
     sections.forEach(section => {
-      const sectionTop = section.offsetTop;
+      const sectionTop = section.offsetTop - 40;
       // const sectionHeight = section.clientHeight;
       if (
         parseInt(document.body.getBoundingClientRect().top) * -1 >=
@@ -200,7 +200,7 @@ function App() {
           of products.
         </p>
         <div className="about-inner">
-          <h4>Our services are</h4>
+          <h4>We offer services that are</h4>
           <span>
             <Typed
               strings={["reliable", "competitive", "infallible"]}
@@ -253,12 +253,18 @@ function App() {
       {/* Join Us Section */}
       <section className="join-section" id="join-us">
         <h2>Join us</h2>
-        <p>Our community is always growing.</p>
+        <p>Our community is always growing. Come and be part</p>
         <div className="join-section-img">
           <img src={TeamPic} alt="team" />
         </div>
       </section>
       {/* End of Join Us Section */}
+
+      {/* Footer */}
+      <footer className="footer">
+        <p>Duffy ™ - {new Date().getFullYear()}. All Rights Reserved</p>
+      </footer>
+      {/* End of footer */}
       {/* Mobile Nav */}
       <div className="mobile-container" id="mobile-container-div">
         <div className="mobile-container-icon">
